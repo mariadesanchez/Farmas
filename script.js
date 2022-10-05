@@ -12,4 +12,3 @@ setTimeout(() => {
 	buttonSubmit.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar WhatsApp'
 	buttonSubmit.disabled = false
 }, 3000);
-});
