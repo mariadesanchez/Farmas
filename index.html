@@ -1,46 +1,40 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Envío de formulario por WhatsApp</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
- <link rel="stylesheet" href="style.css"> 
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+    <script>const frm = document.querySelector("#frm");
 
-    <form id="formulario" class="formulario">
-        <h1>Enviar Receta de IOMA MEPPES por WhatsApp</h1>
-        <div class="box-input">
-            <input name="nombre" id="nombre" type="text" required>
-            <span data-placeholder="Escriba su Nombre"></span>
-        </div>
-        <div class="box-input">
-            <input name="apellidos" id="apellidos" type="text" required>
-            <span data-placeholder="Escriba su Apellido"></span>
-        </div>
-        <div class="box-input">
-            <input name="email" id="email" type="email" required>
-            <span data-placeholder="Escriba su Correo Electrónico"></span>
-        </div>
-        <button id="submit" type="submit" class="boton"><i class="fab fa-whatsapp"></i> Enviar WhatsApp</button>
+        frm.addEventListener("submit", event => {
+          event.preventDefault();
+          const frm = event.target;
+          const formData = {
+            name: frm.name.value,
+            phone: frm.phone.value,
+            email: frm.email.value,
+            date: frm.date.value
+          };
+        
+          const URL = `https://api.whatsapp.com/send?phone=${formData.phone}&text=Hi, ${formData.name}%20you%20have%20scheduled%20an%20appointment%20on%20${formData.date}%20with%20the%20following%20instructions%20&source=&data=`;
+        
+          window.open(URL, "_blank");
+        });</script>
+  </head>
+  <body>
+    <h1>formulario wtp</h1>
+    <form id="frm">
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="tel" id="phone" placeholder="Phone" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="date" id="date" required />
+      <button type="submit">Enviar</button>
     </form>
-
-    <script type="text/javascript">
-        $(".box-input input").on("focus", function(){
-            $(this).addClass("focus");
-        });
-
-        $(".box-input input").on("blur", function(){
-            if($(this).val() == ""){
-                $(this).removeClass("focus");
-            }
-        });
-
-    </script>
-
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="whatsapp.js"></script>
-</body>
+  </body>
+  <script src="./app.js"></script>
 </html>
+
+
+
+
