@@ -1,40 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Static Template</title>
-  </head>
-  <body>
-    <h1>formulario wtp</h1>
-    <form id="frm">
-      <input type="text" id="name" placeholder="Name" required />
-      <input type="tel" id="phone" placeholder="Phone" required />
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="date" id="date" required />
-      <button type="submit">Enviar</button>
-    </form>
-  </body>
-  <script src="./app.js"></script>
+<html lang="es-MX">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp API - by Gabriel Chávez</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.2.0/tailwind.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="w-full max-w-xs">
+        <form id="form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                    Nombre
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="name" id="name" type="text" placeholder="Ingresa tu nombre" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                    Apellidos
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="lastname" id="lastname" type="text" placeholder="Ingresa tus apellidos" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                    Correo
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="email" id="email" type="email" placeholder="Ingresa tu correo" required>
+            </div>
+            <div class="flex items-center justify-between">
+                <button id="submit"
+                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    <i class="fab fa-whatsapp"></i> Enviar WhatsApp
+                </button>
+            </div>
+        </form>
+        <p class="text-center text-gray-500 text-xs">
+            Desarrollado por: <b><a target="_blank" href="https://gabrielchavez.me">Gabriel Chávez</a></b>
+        </p>
+    </div>
+    <script src="https://kit.fontawesome.com/1e268974cb.js" crossorigin="anonymous"></script>
+    <script src="assets/js/helpers.js"></script>
+    <script src="assets/js/whatsapp.js"></script>
+</body>
+
 </html>
-
-
-<script>
-
-const frm = document.querySelector("#frm");
-
-frm.addEventListener("submit", event => {
-  event.preventDefault();
-  const frm = event.target;
-  const formData = {
-    name: frm.name.value,
-    phone: frm.phone.value,
-    email: frm.email.value,
-    date: frm.date.value
-  };
-
-  const URL = `https://api.whatsapp.com/send?phone=${formData.phone}&text=Hi, ${formData.name}%20you%20have%20scheduled%20an%20appointment%20on%20${formData.date}%20with%20the%20following%20instructions%20&source=&data=`;
-
-  window.open(URL, "_blank");
-});</script>
