@@ -1,7 +1,4 @@
-/* 
-* Author: Gabriel Chávez
-* Website: https://gabrielchavez.me
-*/
+
 
 const $form = document.querySelector('#form');
 const buttonSubmit = document.querySelector('#submit');

@@ -1,7 +1,4 @@
-/* 
-* NOTA: se puede mejorar este código
-* Su función únicamente es identificar si el dispositivo actual es mobile o no 
-*/
+
 
 function isMobile() {
 
