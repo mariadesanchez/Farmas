@@ -10,44 +10,6 @@
 </head>
 
 <body>
-    <script>'use strict';
-
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const snap = document.getElementById("snap");
-        const errorMsgElement = document.querySelector('span#errorMsg');
-        
-        const constraints = {
-          audio: true,
-          video: {
-            width: 1280, height: 720
-          }
-        };
-        
-        // Access webcam
-        async function init() {
-          try {
-            const stream = await navigator.mediaDevices.getUserMedia(constraints);
-            handleSuccess(stream);
-          } catch (e) {
-            errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
-          }
-        }
-        
-        // Success
-        function handleSuccess(stream) {
-          window.stream = stream;
-          video.srcObject = stream;
-        }
-        
-        // Load init
-        init();
-        
-        // Draw image
-        var context = canvas.getContext('2d');
-        snap.addEventListener("click", function() {
-                context.drawImage(video, 0, 0, 640, 480);
-        });</script>
     <div class="w-full max-w-xs">
        
         <form id="form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -60,18 +22,6 @@
                     <i></i> IOMA MEPPES
                 </label><br><br>
             </div>
-            <!-- Stream video via webcam -->
-<div class="video-wrap">
-    <video id="video" playsinline autoplay></video>
-</div>
-
-<!-- Trigger canvas web API -->
-<div class="controller">
-    <button id="snap">Capture</button>
-</div>
-
-<!-- Webcam video snapshot -->
-<canvas id="canvas" width="640" height="480"></canvas>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
                     Nombre
