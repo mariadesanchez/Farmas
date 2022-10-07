@@ -10,74 +10,14 @@
 </head>
 
 <body>
-    <div class="w-full max-w-xs">
-       
-        <form id="form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div class="flex items-center justify-between">
-                <label
-                    class="bg-green-500 hover:bg-green-700
-                    text-white font-bold py-2 px-4 rounded 
-                    "
-                    >
-                    <i></i> IOMA MEPPES
-                </label><br><br>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                    Nombre
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="name" id="name" type="text" placeholder="Ingresa tu nombre" required>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                    Apellido
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="lastname" id="lastname" type="text" placeholder="Ingresa tu apellido" required>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                   DNI
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="dni" id="dni" type="text" placeholder="Ingresa tu DNI" required>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                  Número de Afiliado 
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="numeroafiliado" id="numeroafiliado" type="text" placeholder="Ingresa tu Número de Afiliado" required>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                    Correo
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="email" id="email" type="email" placeholder="Ingresa tu email" required>
-            </div>
-            <div class="flex items-center justify-between">
-                <button id="submit"
-                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="submit">
-                    <i class="fab fa-whatsapp"></i> Enviar WhatsApp
-                </button>
-            </div>
-        </form>
-       
-    </div>
-    <script src="https://kit.fontawesome.com/1e268974cb.js" crossorigin="anonymous"></script>
-    <script src="assets/js/helpers.js"></script>
-    <script src="assets/js/whatsapp.js"></script>
+  <script>
+Quagga.decodeSingle({
+    readers: ['code_128_reader'],
+    locate: true, // try to locate the barcode in the image
+    src: '/test/fixtures/code_128/image-001.jpg' // or 'data:image/jpg;base64,' + data
+  }, function(result){
+    console.log(result);
+  });
+</script>
 </body>
-
 </html>
