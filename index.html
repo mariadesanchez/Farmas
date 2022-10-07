@@ -1,83 +1,86 @@
 <!DOCTYPE html>
-<html lang="es-MX">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOMA MEPPES</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.2.0/tailwind.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Tomar fotografías</title>
 </head>
-
 <body>
-    <div class="w-full max-w-xs">
-       
-        <form id="form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div class="flex items-center justify-between">
-                <label
-                    class="bg-green-500 hover:bg-green-700
-                    text-white font-bold py-2 px-4 rounded 
-                    "
-                    >
-                    <i></i> IOMA MEPPES
-                </label><br><br>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                    Nombre
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="name" id="name" type="text" placeholder="Ingresa tu nombre" required>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                    Apellido
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="lastname" id="lastname" type="text" placeholder="Ingresa tu apellido" required>
-            </div>
+	<center><h1>Demo de la cámara de llamada HTML5</h1></center>
+<video id="video" width="640" height="480" autoplay="autoplay"></video>
+<canvas id="canvas" width="640" height="480"></canvas>
+<!--Tocar botón-->
+<div>
+	<button id="opencapture" onclick="getMedia()">Abierto</button>
+	<button onclick="stopStreamedVideo(video)">Cerrar la cámara</button>
+    <button id="capture">Tomar fotografías</button>
+</div>
+<!--Describe la captura de pantalla del video.-->
+<script>
+    let video = document.getElementById("video");
+    let canvas = document.getElementById("canvas");
+    let context = canvas.getContext("2d");
+    // El navegador antiguo puede no implementar medios medianos en absoluto, por lo que podemos establecer un objeto vacío primero
+    if (navigator.mediaDevices === undefined) {
+        navigator.mediaDevices = {};
+    }
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                   DNI
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="dni" id="dni" type="text" placeholder="Ingresa tu DNI" required>
-            </div>
+    // Algunos compatibles con el navegador soportan Mediadevices. No podemos configurar GetUsergemedia directamente
+    // Porque esto puede anular las propiedades existentes. Aquí solo lo agregaremos cuando no hay propiedad de GetUsermedia.
+    if (navigator.mediaDevices.getUserMedia === undefined) {
+        navigator.mediaDevices.getUserMedia = function (constraints) {
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                  Número de Afiliado 
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="numeroafiliado" id="numeroafiliado" type="text" placeholder="Ingresa tu Número de Afiliado" required>
-            </div>
+            // primero, si tienes getUsermedia, consíguelo
+            var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                    Correo
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="email" id="email" type="email" placeholder="Ingresa tu email" required>
-            </div>
-            <div class="flex items-center justify-between">
-                <button id="submit"
-                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="submit">
-                    <i class="fab fa-whatsapp"></i> Enviar WhatsApp
-                </button>
-            </div>
-        </form>
-       
-    </div>
-    <script src="https://kit.fontawesome.com/1e268974cb.js" crossorigin="anonymous"></script>
-    <script src="assets/js/helpers.js"></script>
-    <script src="assets/js/whatsapp.js"></script>
+            // Algunos navegadores no lo implementan en absoluto, y luego devolviendo un error para prometer rechazar para mantener una interfaz unificada
+            if (!getUserMedia) {
+                return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+            }
+
+            / / De lo contrario, envuelva una promesa para el antiguo Navigator.getUsermedia Método
+            return new Promise(function (resolve, reject) {
+                getUserMedia.call(navigator, constraints, resolve, reject);
+            });
+        }
+    }
+	//MediaStream.getTracks()[1].stop();
+    / / La cámara frontal se usa de forma predeterminada, use forzando la cámara trasera de la siguiente manera
+    // let constraints = {video: { facingMode: { exact: "environment" } }};
+    function getMedia(){
+    let constraints = {video: true};
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function (stream) {
+            // El navegador viejo puede no tener srcobject
+            if ("srcObject" in video) {
+                video.srcObject = stream;
+            } else {
+                / / Evitar que lo use en un nuevo navegador, ya no debe ser compatible con él.
+                video.src = window.URL.createObjectURL(stream);
+            }
+            video.onloadedmetadata = function (e) {
+                video.play();
+            };
+        })
+        .catch(function (err) {
+            console.log(err.name + ": " + err.message);
+        });
+        }
+    // Cerrar la cámara VidoeeeM para el ID de video
+	function stopStreamedVideo(videoElem) {
+		  const stream = videoElem.srcObject;
+		  const tracks = stream.getTracks();
+
+		  tracks.forEach(function(track) {
+		    track.stop();
+		  });
+
+		  videoElem.srcObject = null;
+		}
+    / / Registre el botón TAP para hacer clic en evento
+    document.getElementById("capture").addEventListener("click", function () {
+        // Hacer un dibujo
+        context.drawImage(video, 0, 0, 640, 480);
+    });
+</script>
 </body>
-
 </html>
