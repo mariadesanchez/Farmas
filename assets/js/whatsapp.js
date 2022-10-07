@@ -21,7 +21,9 @@ $form.addEventListener('submit', (event) => {
         let dni = document.querySelector('#dni').value
         let numeroafiliado = document.querySelector('#numeroafiliado').value
         let email = document.querySelector('#email').value
-        let message = 'send?phone=' + phone + '&text=*IOMA MEPPES*%0A%0A' + name + ' ' + lastname + '%0A%0A' + email + '%0A%0A' + dni + ''
+        let message = 'send?phone=' + phone + '&text=*IOMA MEPPES*%0A%0A'+'Nombre: ' + name + 
+        'Apellido: '
+        + lastname + '%0A%0A'+'DNI: ' + dni + '%0A%0A' +'Número de Afiliado: ' + numeroafiliado + '%0A%0A' + dni + ''
 
 
         if (isMobile()) {
