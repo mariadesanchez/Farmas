@@ -1,5 +1,6 @@
 
 
+
 const $form = document.querySelector('#form');
 const buttonSubmit = document.querySelector('#submit');
 const urlDesktop = 'https://web.whatsapp.com/';
@@ -17,11 +18,11 @@ $form.addEventListener('submit', (event) => {
         let lastname = document.querySelector('#lastname').value
         let dni = document.querySelector('#dni').value
         let numeroafiliado = document.querySelector('#numeroafiliado').value
-        let email = document.querySelector('#email').value
+        let email = document.querySelector('#quantity').value
         let message = 'send?phone=' + phone + '&text=*IOMA MEPPES*%0A%0A'+' Nombre y Apellido: ' + name + 
      
         ' '+ lastname + '%0A%0A'+'DNI: ' + dni + '%0A%0A' +'Número de Afiliado: ' +
-         numeroafiliado + '%0A%0A' + 'e-mail: ' + email
+         numeroafiliado + '%0A%0A' + 'quantity: ' + cantidad+ '%0A%0A' + 'img: ' + img
 
 
         if (isMobile()) {
